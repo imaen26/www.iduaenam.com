@@ -119,7 +119,7 @@ $(document).ready(function(){
 
 // ==========  START GOOGLE MAP ========== //
 function initialize() {
-    var myLatLng = new google.maps.LatLng(22.402789, 91.822156);
+    var myLatLng = new google.maps.LatLng(-6.2610725, 106.5587397);
 
     var mapOptions = {
         zoom: 14,
@@ -141,7 +141,7 @@ function initialize() {
     var marker = new google.maps.Marker({
         position: myLatLng,
         map: map,
-        icon: 'img/location-icon.png',
+        icon: 'https://rawgit.com/imaen26/www.iduaenam.com/master/iduaenam%20V2/img/location-icon.png',
         title: '',
     });
 
