@@ -83,7 +83,7 @@ body > section,
 }
 
 .sec-sub-title {
-	margin: 35px 0 45px;
+	margin: 35px 0 45px; padding:0px 15px 0px 15px;
 }
 
 .sec-sub-title p {
