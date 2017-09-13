@@ -313,13 +313,14 @@ top: -8px;
   margin-left: 70px;
   position: relative;
   top: 5px;
+  margin-top: 70px;	
 }
 
 .service-desc h3 {
   color: #062033;
   font-size: 20px;
   font-weight: 600;
-  margin-bottom: 125px;
+  margin-bottom: 25px;
 }
 
 
