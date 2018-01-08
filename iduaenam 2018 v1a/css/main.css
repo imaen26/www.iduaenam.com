@@ -736,7 +736,7 @@ button.stroke.large, .button.stroke.large {
 	line-height: 5.4rem !important;
 }
 button.stroke:hover, .button.stroke:hover {
-	border: 3px solid #70a107;
+	border: 0px solid #70a107;
 	color: #70a107;
 }
 button::-moz-focus-inner, input::-moz-focus-inner {
