@@ -1,69 +1,48 @@
-﻿<?php
+<?php
 
-// Replace this with your own email address
-$siteOwnersEmail = 'imaen26@gmail.com';
+/* Configuration */
+$subject = 'Contacto Nebraska Web'; // Set email subject line here
+$mailto  = 'imaen26@gmail.com'; // Email address to send the form to
+/* END Configuration */
 
-
-if($_POST) {
 
    $name = trim(stripslashes($_POST['contactName']));
    $email = trim(stripslashes($_POST['contactEmail']));
    $subject = trim(stripslashes($_POST['contactSubject']));
    $contact_message = trim(stripslashes($_POST['contactMessage']));
 
-   // Check Name
-	if (strlen($name) < 2) {
-		$error['name'] = "Please enter your name.";
-	}
-	// Check Email
-	if (!preg_match('/^[a-z0-9&\'\.\-_\+]+@[a-z0-9\-]+\.([a-z0-9\-]+\.)*+[a-z]{2}/is', $email)) {
-		$error['email'] = "Please enter a valid email address.";
-	}
-	// Check Message
-	if (strlen($contact_message) < 15) {
-		$error['message'] = "Please enter your message. It should have at least 15 characters.";
-	}
-   // Subject
-	if ($subject == '') { $subject = "Contact Form Submission"; }
 
+// HTML for email to send submission details
+$body = "
+<br>
+<p>Message:</p>
+<p><b>Name</b>: $name <br>
+<b>Email</b>: $email<br>
+<b>subject</b>: $subject<br>
+<b>message</b>: $contact_message<br>
+<p>This form was submitted on <b>$timestamp</b></p>
+";
 
-   // Set Message
-   $message .= "Email from: " . $name . "<br />";
-	$message .= "Email address: " . $email . "<br />";
-   $message .= "Message: <br />";
-   $message .= $contact_message;
-   $message .= "<br /> ----- <br /> This email was sent from your site's contact form. <br />";
+// Success Message
+$success = "
+<div class=\"row\">
+    <div class=\"thankyou\">
+        <h3>Submission successful</h3>
+        <p>Mensaje recibido, gracias por contactarte con Nebraska Films, te responderemos a la brevedad.</p>
+    </div>
+</div>
+";
 
-   // Set From: header
-   $from =  $name . " <" . $email . ">";
+$headers = "From: $name <$email> \r\n";
+$headers .= "Reply-To: $email \r\n";
+$headers .= "MIME-Version: 1.0\r\n";
+$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+$message = "<html><body>$body</body></html>";
 
-   // Email Headers
-	$headers = "From: " . $from . "\r\n";
-	$headers .= "Reply-To: ". $email . "\r\n";
- 	$headers .= "MIME-Version: 1.0\r\n";
-	$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
-
-
-   if (!$error) {
-
-      ini_set("sendmail_from", $siteOwnersEmail); // for windows server
-      $mail = mail($siteOwnersEmail, $subject, $message, $headers);
-
-		if ($mail) { echo "OK"; }
-      else { echo "Something went wrong. Please try again."; }
-		
-	} # end if - no validation error
-
-	else {
-
-		$response = (isset($error['name'])) ? $error['name'] . "<br /> \n" : null;
-		$response .= (isset($error['email'])) ? $error['email'] . "<br /> \n" : null;
-		$response .= (isset($error['message'])) ? $error['message'] . "<br />" : null;
-		
-		echo $response;
-
-	} # end if - there was a validation error
-
+if (mail($mailto, $subject, $message, $headers)) {
+    echo "$success"; // success
+} else {
+    echo 'Hubo un error, por favor intenta nuevamente.'; // failure
 }
 
 ?>
